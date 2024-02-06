@@ -1,10 +1,12 @@
 "use client";
 import Logo from "./Logo";
+import { Dialog, Menu, Transition } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { PlusIcon } from '@heroicons/react/20/solid'
+import { useState, Fragment } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Dialog } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import classNames from "classnames";
 
 interface NavLink {
   id: number;
@@ -19,12 +21,11 @@ interface MobileNavLink extends NavLink {
 
 function NavLink({ url, text }: NavLink) {
   const path = usePathname();
-  { console.log(path === url) }
   return (
     <li className="flex">
       <Link
         href={url}
-        className={`flex items-center text-gray-700 px-4 -mb-1 ${path === url && "text-violet-400"
+        className={`flex items-center text-slate-700 px-4 -mb-1 ${path === url && "text-violet-400"
           }`}
       >
         {text}
@@ -43,7 +44,7 @@ function MobileNavLink({ url, text, closeMenu }: MobileNavLink) {
       <Link
         href={url}
         onClick={handleClick}
-        className={`-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-700 hover:bg-gray-900 ${path === url && "text-violet-400"
+        className={`block px-3 py-4 text-lg font-semibold text-slate-700 ${path === url && "text-violet-400"
           }`}
       >
         {text}
@@ -54,10 +55,12 @@ function MobileNavLink({ url, text, closeMenu }: MobileNavLink) {
 
 export default function Navbar({
   links,
+  profileLinks,
   logoUrl,
   logoText,
 }: {
   links: Array<NavLink>;
+  profileLinks: Array<NavLink>;
   logoUrl: string | null;
   logoText: string | null;
 }) {
@@ -66,7 +69,7 @@ export default function Navbar({
     setMobileMenuOpen(false);
   };
   return (
-    <div className="flex py-2 px-4 bg-slate-50 dark:bg-black dark:text-gray-100 shadow shadow-slate-300">
+    <div className="flex py-2 px-4 bg-slate-50 dark:bg-black dark:text-slate-100 shadow shadow-slate-300">
       <div className="container flex h-16 mx-auto px-0 sm:px-6">
         <Logo src={logoUrl} />
         <div className="ml-12 items-center flex-shrink-0 hidden lg:flex">
@@ -76,34 +79,120 @@ export default function Navbar({
             ))}
           </ul>
         </div>
+        <div className="ml-auto items-center gap-4 flex-shrink-0 hidden lg:flex">
+          <button
+            type="button"
+            className="p-2"
+            onClick={() => console.log('new deck')}
+          >
+            <span className="sr-only">New deck</span>
+            <PlusIcon className="h-6 w-6 fill-slate-900" aria-hidden="true" />
+          </button>
+          <Menu as="div" className="relative inline-block text-left">
+            <div>
+              <Menu.Button className="flex items-center text-slate-900 focus:outline-none">
+                <img
+                  className="inline-block h-8 w-8 rounded-full"
+                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                  alt=""
+                />
+                <p className="ml-1">Eleandre</p>
+              </Menu.Button>
+            </div>
 
-        <div className="ml-auto items-center flex-shrink-0 hidden lg:flex">
-          +
+            <Transition
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+            >
+              <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <div className="py-1 last:divide-y">
+                  <ul>
+                    {profileLinks.map((link) => (
+                      <li>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link
+                              key={link.id}
+                              href={link.url}
+                              className={classNames(
+                                active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                'block w-full px-4 py-2 text-left text-sm'
+                              )}
+                            >
+                              {link.text}
+                            </Link>
+                          )}
+                        </Menu.Item>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <form method="POST" action="#">
+                    <Menu.Item>
+                      {({ active }) => (
+                        <button
+                          type="submit"
+                          className={classNames(
+                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                            'block w-full px-4 py-2 text-left text-sm text-red-600'
+                          )}
+                        >
+                          Sign out
+                        </button>
+                      )}
+                    </Menu.Item>
+                  </form>
+                </div>
+              </Menu.Items>
+            </Transition>
+          </Menu>
         </div>
 
-        <Dialog
-          as="div"
-          className="lg:hidden"
-          open={mobileMenuOpen}
-          onClose={setMobileMenuOpen}
-        >
-          <div className="fixed inset-0 z-40 bg-gray-600 bg-opacity-75" />{" "}
-          {/* Overlay */}
-          <Dialog.Panel className="fixed inset-y-0 rtl:left-0 ltr:right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-inset sm:ring-white/10">
-            <div className="flex items-center justify-between">
-              <Logo src={logoUrl} />
-              <button
-                type="button"
-                className="-m-2.5 rounded-md p-2.5"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <span className="sr-only">Close menu</span>
-                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-              </button>
-            </div>
-            <div className="mt-6 flow-root">
-              <div className="-my-6 divide-y divide-gray-700">
-                <div className="space-y-2 py-6">
+        <Transition.Root show={mobileMenuOpen} as={Fragment}>
+          <Dialog
+            as="div"
+            className="lg:hidden"
+            onClose={setMobileMenuOpen}
+          >
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-200"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <div className="fixed inset-0 z-40 bg-slate-600 bg-opacity-75" />
+            </Transition.Child>
+            {/* Overlay */}
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-200"
+              enterFrom="opacity-0 translate-x-0 sm:-translate-x-8"
+              enterTo="opacity-100 translate-x-0"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 translate-x-0"
+              leaveTo="opacity-0 translate-x-0 sm:-translate-x-8"
+            >
+              <Dialog.Panel className="fixed inset-y-0 rtl:left-0 ltr:right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-inset sm:ring-white/10">
+                <div className="flex items-center justify-between">
+                  <Logo src={logoUrl} />
+                  <button
+                    type="button"
+                    className="-m-2.5 rounded-md p-2.5"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <span className="sr-only">Close menu</span>
+                    <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                  </button>
+                </div>
+                <div className="space-y-2 mt-12">
                   {links.map((item) => (
                     <MobileNavLink
                       key={item.id}
@@ -112,15 +201,15 @@ export default function Navbar({
                     />
                   ))}
                 </div>
-              </div>
-            </div>
-          </Dialog.Panel>
-        </Dialog>
+              </Dialog.Panel>
+            </Transition.Child>
+          </Dialog>
+        </Transition.Root>
         <button
           className="ml-auto p-4 lg:hidden"
           onClick={() => setMobileMenuOpen(true)}
         >
-          <Bars3Icon className="h-7 w-7 text-gray-700" aria-hidden="true" />
+          <Bars3Icon className="h-7 w-7 text-slate-700" aria-hidden="true" />
         </button>
       </div>
     </div>

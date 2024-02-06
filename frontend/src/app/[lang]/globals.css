@@ -92,11 +92,11 @@ body {
 
 /* Code blocks */
 .rich-text pre {
-  @apply font-mono bg-gray-900 text-gray-100 rounded p-4  my-6;
+  @apply font-mono bg-gray-900 text-slate-100 rounded p-4  my-6;
 }
 
 .rich-text code {
-  @apply font-mono bg-gray-900 text-gray-100 rounded px-2 py-1;
+  @apply font-mono bg-gray-900 text-slate-100 rounded px-2 py-1;
 }
 
 /* Tables */

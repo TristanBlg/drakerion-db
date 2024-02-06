@@ -96,11 +96,11 @@ export default function PostList({
                 </h3>
 
                 <div className="flex justify-between items-center">
-                  <span className="text-xs dark:text-gray-400">
+                  <span className="text-xs dark:text-slate-400">
                     {formatDate(article.attributes.publishedAt)}
                   </span>
                   {authorsBio && (
-                    <span className="text-xs dark:text-gray-400">
+                    <span className="text-xs dark:text-slate-400">
                       {authorsBio.name}
                     </span>
                   )}

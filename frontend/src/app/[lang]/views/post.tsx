@@ -41,7 +41,7 @@ export default function Post({ data }: { data: Article }) {
     const authorImgUrl = getStrapiMedia(authorsBio.data?.attributes.avatar.data.attributes.url);
 
     return (
-        <article className="space-y-8 dark:bg-black dark:text-gray-50">
+        <article className="space-y-8 dark:bg-black dark:text-slate-50">
             {imageUrl && (
                 <Image
                     src={imageUrl}
@@ -53,7 +53,7 @@ export default function Post({ data }: { data: Article }) {
             )}
             <div className="space-y-6">
                 <h1 className="leading-tight text-5xl font-bold ">{title}</h1>
-                <div className="flex flex-col items-start justify-between w-full md:flex-row md:items-center dark:text-gray-400">
+                <div className="flex flex-col items-start justify-between w-full md:flex-row md:items-center dark:text-slate-400">
                     <div className="flex items-center md:space-x-2">
                         {authorImgUrl && (
                             <Image
@@ -71,7 +71,7 @@ export default function Post({ data }: { data: Article }) {
                 </div>
             </div>
 
-            <div className="dark:text-gray-100">
+            <div className="dark:text-slate-100">
                 <p>{description}</p>
 
                 {data.attributes.blocks.map((section: any, index: number) => postRenderer(section, index))}

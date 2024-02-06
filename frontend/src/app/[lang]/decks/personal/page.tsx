@@ -1,6 +1,6 @@
 import { fetchAPI } from '@/app/[lang]/utils/fetch-api';
 import Link from 'next/link';
-import { formatDate } from '../utils/api-helpers';
+import { formatDate } from '../../utils/api-helpers';
 
 async function fetchPostsByCategory(filter: string) {
   try {

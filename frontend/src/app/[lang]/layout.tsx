@@ -24,6 +24,7 @@ async function getGlobal(lang: string): Promise<any> {
       "favicon",
       "notificationBanner.link",
       "navbar.links",
+      "navbar.profileLinks",
       "navbar.navbarLogo.logoImg",
       "footer.footerLogo.logoImg",
       "footer.menuLinks",
@@ -76,9 +77,10 @@ export default async function RootLayout({
 
   return (
     <html lang={params.lang}>
-      <body className="bg-slate-50 dark:bg-black dark:text-gray-100">
+      <body className="bg-slate-50 dark:bg-black dark:text-slate-100">
         <Navbar
           links={navbar.links}
+          profileLinks={navbar.profileLinks}
           logoUrl={navbarLogoUrl}
           logoText={navbar.navbarLogo.logoText}
         />
