@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_shared_cards",
+  "info": {
+    "displayName": "Card",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "quantity": {
+      "type": "integer",
+      "min": 0,
+      "max": 4,
+      "required": true
+    },
+    "boardtype": {
+      "type": "enumeration",
+      "enum": [
+        "mainboard",
+        "sideboard"
+      ],
+      "required": true
+    },
+    "card": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::card.card"
+    }
+  }
+}

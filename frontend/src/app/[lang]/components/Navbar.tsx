@@ -19,14 +19,13 @@ interface MobileNavLink extends NavLink {
 
 function NavLink({ url, text }: NavLink) {
   const path = usePathname();
-
+  { console.log(path === url) }
   return (
     <li className="flex">
       <Link
         href={url}
-        className={`flex items-center mx-4 -mb-1 border-b-2 dark:border-transparent ${
-          path === url && "dark:text-violet-400 dark:border-violet-400"
-        }}`}
+        className={`flex items-center text-gray-700 px-4 -mb-1 ${path === url && "text-violet-400"
+          }`}
       >
         {text}
       </Link>
@@ -44,9 +43,8 @@ function MobileNavLink({ url, text, closeMenu }: MobileNavLink) {
       <Link
         href={url}
         onClick={handleClick}
-        className={`-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-100 hover:bg-gray-900 ${
-          path === url && "dark:text-violet-400 dark:border-violet-400"
-        }}`}
+        className={`-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-700 hover:bg-gray-900 ${path === url && "text-violet-400"
+          }`}
       >
         {text}
       </Link>
@@ -68,18 +66,19 @@ export default function Navbar({
     setMobileMenuOpen(false);
   };
   return (
-    <div className="p-4 dark:bg-black dark:text-gray-100">
-      <div className="container flex justify-between h-16 mx-auto px-0 sm:px-6">
-        <Logo src={logoUrl}>
-          {logoText && <h2 className="text-2xl font-bold">{logoText}</h2>}
-        </Logo>
-
-        <div className="items-center flex-shrink-0 hidden lg:flex">
-          <ul className="items-stretch hidden space-x-3 lg:flex">
+    <div className="flex py-2 px-4 bg-slate-50 dark:bg-black dark:text-gray-100 shadow shadow-slate-300">
+      <div className="container flex h-16 mx-auto px-0 sm:px-6">
+        <Logo src={logoUrl} />
+        <div className="ml-12 items-center flex-shrink-0 hidden lg:flex">
+          <ul className="items-stretch hidden lg:flex">
             {links.map((item: NavLink) => (
               <NavLink key={item.id} {...item} />
             ))}
           </ul>
+        </div>
+
+        <div className="ml-auto items-center flex-shrink-0 hidden lg:flex">
+          +
         </div>
 
         <Dialog
@@ -90,15 +89,12 @@ export default function Navbar({
         >
           <div className="fixed inset-0 z-40 bg-gray-600 bg-opacity-75" />{" "}
           {/* Overlay */}
-          <Dialog.Panel className="fixed inset-y-0 rtl:left-0 ltr:right-0 z-50 w-full overflow-y-auto bg-gray-800 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-inset sm:ring-white/10">
+          <Dialog.Panel className="fixed inset-y-0 rtl:left-0 ltr:right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-inset sm:ring-white/10">
             <div className="flex items-center justify-between">
-              <a href="#" className="-m-1.5 p-1.5">
-                <span className="sr-only">Strapi</span>
-                {logoUrl && <img className="h-8 w-auto" src={logoUrl} alt="" />}
-              </a>
+              <Logo src={logoUrl} />
               <button
                 type="button"
-                className="-m-2.5 rounded-md p-2.5 text-white"
+                className="-m-2.5 rounded-md p-2.5"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <span className="sr-only">Close menu</span>
@@ -121,10 +117,10 @@ export default function Navbar({
           </Dialog.Panel>
         </Dialog>
         <button
-          className="p-4 lg:hidden"
+          className="ml-auto p-4 lg:hidden"
           onClick={() => setMobileMenuOpen(true)}
         >
-          <Bars3Icon className="h-7 w-7 text-gray-100" aria-hidden="true" />
+          <Bars3Icon className="h-7 w-7 text-gray-700" aria-hidden="true" />
         </button>
       </div>
     </div>

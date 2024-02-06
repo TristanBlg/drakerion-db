@@ -42,16 +42,6 @@
         }
       }
     },
-    "notificationBanner": {
-      "type": "component",
-      "repeatable": false,
-      "component": "elements.notification-banner",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
-    },
     "navbar": {
       "type": "component",
       "repeatable": false,

@@ -1,0 +1,128 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cards",
+  "info": {
+    "singularName": "card",
+    "pluralName": "cards",
+    "displayName": "Card",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "minLength": 3,
+      "required": true,
+      "unique": true
+    },
+    "faction": {
+      "type": "enumeration",
+      "enum": [
+        "Tyraslin",
+        "Lokmar",
+        "Kartej",
+        "Wasteland",
+        "Gil Estel",
+        "Neutral"
+      ],
+      "required": true
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "Banner",
+        "City",
+        "Maneuver",
+        "Character",
+        "Event",
+        "Attachment"
+      ],
+      "required": true
+    },
+    "sets": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::set.set",
+      "mappedBy": "cards"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "melee_attack": {
+      "type": "integer",
+      "min": 0,
+      "max": 99,
+      "default": 0
+    },
+    "ranged_attack": {
+      "type": "integer",
+      "min": 0,
+      "max": 99
+    },
+    "riposte": {
+      "type": "integer",
+      "max": 99,
+      "min": 0
+    },
+    "health": {
+      "type": "integer",
+      "min": 0,
+      "max": 99
+    },
+    "prestige": {
+      "type": "integer",
+      "min": 0,
+      "max": 99
+    },
+    "cost": {
+      "type": "integer",
+      "min": 0,
+      "max": 99
+    },
+    "subheading": {
+      "type": "string",
+      "minLength": 3,
+      "unique": true
+    },
+    "draw": {
+      "type": "integer",
+      "min": 0,
+      "max": 99
+    },
+    "gold": {
+      "type": "integer",
+      "min": 0,
+      "max": 99
+    },
+    "subtype": {
+      "type": "string",
+      "minLength": 3
+    },
+    "trait": {
+      "type": "string",
+      "minLength": 3
+    },
+    "initiative": {
+      "type": "integer",
+      "min": 0,
+      "max": 99
+    },
+    "abilities": {
+      "type": "richtext"
+    },
+    "artist": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::artist.artist",
+      "inversedBy": "cards"
+    }
+  }
+}
