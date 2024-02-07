@@ -68,6 +68,7 @@ function RenderSocialIcon({ social }: { social: string | undefined }) {
 export default function Footer({
   logoUrl,
   logoText,
+  lang,
   menuLinks,
   categoryLinks,
   legalLinks,
@@ -75,6 +76,7 @@ export default function Footer({
 }: {
   logoUrl: string | null;
   logoText: string | null;
+  lang: string,
   menuLinks: Array<FooterLink>;
   categoryLinks: Array<CategoryLink>;
   legalLinks: Array<FooterLink>;
@@ -83,10 +85,10 @@ export default function Footer({
 
   return (
     <footer className="py-6 border-t bg-slate-100 dark:bg-black dark:text-slate-50">
-      <div className="container px-6 mx-auto space-y-6 divide-y divide-gray-400 md:space-y-12 divide-opacity-50">
+      <div className="container px-6 mx-auto space-y-6 divide-y divide-slate-400 md:space-y-12 divide-opacity-50">
         <div className="grid grid-cols-12">
           <div className="pb-6 col-span-full md:pb-0 md:col-span-6">
-            <Logo src={logoUrl}>
+            <Logo src={logoUrl} to={`/${lang}/`}>
               {logoText && <h2 className="text-2xl font-bold">{logoText}</h2>}
             </Logo>
           </div>

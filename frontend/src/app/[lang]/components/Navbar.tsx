@@ -55,11 +55,13 @@ function MobileNavLink({ url, text, closeMenu }: MobileNavLink) {
 
 export default function Navbar({
   links,
+  lang,
   profileLinks,
   logoUrl,
   logoText,
 }: {
   links: Array<NavLink>;
+  lang: string,
   profileLinks: Array<NavLink>;
   logoUrl: string | null;
   logoText: string | null;
@@ -71,7 +73,7 @@ export default function Navbar({
   return (
     <div className="flex py-2 px-4 bg-slate-50 dark:bg-black dark:text-slate-100 shadow shadow-slate-300">
       <div className="container flex h-16 mx-auto px-0 sm:px-6">
-        <Logo src={logoUrl} />
+        <Logo src={logoUrl} to={`/${lang}/`} />
         <div className="ml-12 items-center flex-shrink-0 hidden lg:flex">
           <ul className="items-stretch hidden lg:flex">
             {links.map((item: NavLink) => (
@@ -110,7 +112,7 @@ export default function Navbar({
               leaveTo="transform opacity-0 scale-95"
             >
               <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <div className="py-1 last:divide-y">
+                <div className="py-1 divide-y divide-gray-400 divide-opacity-50">
                   <ul>
                     {profileLinks.map((link) => (
                       <li>
@@ -180,26 +182,45 @@ export default function Navbar({
               leaveFrom="opacity-100 translate-x-0"
               leaveTo="opacity-0 translate-x-0 sm:-translate-x-8"
             >
-              <Dialog.Panel className="fixed inset-y-0 rtl:left-0 ltr:right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-inset sm:ring-white/10">
+              <Dialog.Panel className="fixed inset-y-0 rtl:left-0 ltr:right-0 z-50 w-full overflow-y-auto bg-white px-4 py-6 sm:max-w-sm sm:ring-1 sm:ring-inset sm:ring-white/10">
                 <div className="flex items-center justify-between">
-                  <Logo src={logoUrl} />
+                  <Logo src={logoUrl} to={`/${lang}/`} />
                   <button
                     type="button"
-                    className="-m-2.5 rounded-md p-2.5"
+                    className="-my-2.5 mr-2 rounded-md p-2.5"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <span className="sr-only">Close menu</span>
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
                 </div>
-                <div className="space-y-2 mt-12">
-                  {links.map((item) => (
-                    <MobileNavLink
-                      key={item.id}
-                      closeMenu={closeMenu}
-                      {...item}
-                    />
-                  ))}
+                <div className="mt-12 divide-y divide-gray-400 divide-opacity-50">
+                  <div>
+                    {links.map((item) => (
+                      <MobileNavLink
+                        key={item.id}
+                        closeMenu={closeMenu}
+                        {...item}
+                      />
+                    ))}
+                  </div>
+                  <div>
+                    {profileLinks.map((item) => (
+                      <MobileNavLink
+                        key={item.id}
+                        closeMenu={closeMenu}
+                        {...item}
+                      />
+                    ))}
+                  </div>
+                  <form method="POST" action="#">
+                    <button
+                      type="submit"
+                      className="block px-3 py-4 text-lg font-semibold text-left text-red-600"
+                    >
+                      Sign out
+                    </button>
+                  </form>
                 </div>
               </Dialog.Panel>
             </Transition.Child>

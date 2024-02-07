@@ -80,6 +80,7 @@ export default async function RootLayout({
       <body className="bg-slate-50 dark:bg-black dark:text-slate-100">
         <Navbar
           links={navbar.links}
+          lang={params.lang}
           profileLinks={navbar.profileLinks}
           logoUrl={navbarLogoUrl}
           logoText={navbar.navbarLogo.logoText}
@@ -94,6 +95,7 @@ export default async function RootLayout({
         <Footer
           logoUrl={footerLogoUrl}
           logoText={footer.footerLogo.logoText}
+          lang={params.lang}
           menuLinks={footer.menuLinks}
           categoryLinks={[]}
           legalLinks={footer.legalLinks}

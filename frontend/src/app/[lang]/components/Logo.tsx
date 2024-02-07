@@ -3,14 +3,16 @@ import Image from "next/image";
 
 export default function Logo({
   src,
+  to,
   children,
 }: {
   src: string | null;
+  to: string,
   children?: React.ReactNode;
 }) {
   return (
     <Link
-      href="/"
+      href={to}
       aria-label="Back to homepage"
       className="flex items-center"
     >
