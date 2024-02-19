@@ -93,7 +93,7 @@ export default function Footer({
             </Logo>
           </div>
 
-          <div className="col-span-6 text-center md:text-left md:col-span-3">
+          <div className="col-span-6 text-left md:col-span-3">
             <p className="pb-1 text-lg font-medium">Categories</p>
             <ul>
               {categoryLinks.map((link: CategoryLink) => (
@@ -102,7 +102,7 @@ export default function Footer({
             </ul>
           </div>
 
-          <div className="col-span-6 text-center md:text-left md:col-span-3">
+          <div className="col-span-6 text-left md:col-span-3">
             <p className="pb-1 text-lg font-medium">Menu</p>
             <ul>
               {menuLinks.map((link: FooterLink) => (
@@ -112,15 +112,15 @@ export default function Footer({
           </div>
         </div>
         <div className="grid justify-center pt-6 lg:justify-between">
-          <div className="flex">
-            <span className="mr-2">
+          <div className="flex flex-col gap-2 sm:flex-row sm:gap-0">
+            <span className="sm:mr-2">
               ©{new Date().getFullYear()} All rights reserved
             </span>
-            <ul className="flex">
+            <ul className="flex gap-2">
               {legalLinks.map((link: FooterLink) => (
                 <Link
                   href={link.url}
-                  className="text-slate-400 hover:text-slate-300 mr-2"
+                  className="text-slate-400 hover:text-slate-300"
                   key={link.id}
                 >
                   {link.text}

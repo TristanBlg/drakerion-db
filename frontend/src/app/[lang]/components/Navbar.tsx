@@ -115,7 +115,7 @@ export default function Navbar({
                 <div className="py-1 divide-y divide-gray-400 divide-opacity-50">
                   <ul>
                     {profileLinks.map((link) => (
-                      <li>
+                      <li key={link.id}>
                         <Menu.Item>
                           {({ active }) => (
                             <Link

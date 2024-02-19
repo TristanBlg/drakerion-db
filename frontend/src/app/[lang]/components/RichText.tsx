@@ -1,17 +1,11 @@
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-interface RichTextProps {
-  data: {
-    body: string;
-  };
-}
 
-export default function RichText({ data }: RichTextProps) {
-  // TODO: STYLE THE MARKDOWN
+export default function RichText({ text }: { text: string }) {
   return (
-    <section className="rich-text py-6 dark:bg-black dark:text-slate-50 ">
-      <Markdown children={data.body} remarkPlugins={[remarkGfm]} />
+    <section className="rich-text">
+      <Markdown children={text} remarkPlugins={[remarkGfm]} />
     </section>
   );
 }
