@@ -21,24 +21,24 @@
     "faction": {
       "type": "enumeration",
       "enum": [
-        "Tyraslin",
-        "Lokmar",
-        "Kartej",
-        "Wasteland",
-        "Gil Estel",
-        "Neutral"
+        "tyraslin",
+        "lokmar",
+        "kartej",
+        "wasteland",
+        "gilestel",
+        "neutral"
       ],
       "required": true
     },
     "type": {
       "type": "enumeration",
       "enum": [
-        "Banner",
-        "City",
-        "Maneuver",
-        "Character",
-        "Event",
-        "Attachment"
+        "banner",
+        "city",
+        "maneuver",
+        "character",
+        "event",
+        "attachment"
       ],
       "required": true
     },

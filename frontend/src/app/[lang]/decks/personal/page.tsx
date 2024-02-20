@@ -1,6 +1,7 @@
 import { fetchAPI } from '@/app/[lang]/utils/fetch-api';
 import Link from 'next/link';
 import { formatDate } from '../../utils/api-helpers';
+import PageHeader from '../../components/PageHeader';
 
 async function fetchPostsByCategory(filter: string) {
   try {
@@ -34,7 +35,7 @@ export default async function CategoryRoute({ params }: { params: { category: st
 
   return (
     <div>
-      {/* <PageHeader heading={name} text={""} /> */}
+      <PageHeader heading={"Deck personal"} text={""} />
       {/* <div>{name}</div> */}
       <div className="container mx-auto p-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">

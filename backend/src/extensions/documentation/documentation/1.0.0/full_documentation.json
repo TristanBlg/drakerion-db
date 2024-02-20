@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-02-19T07:59:01.371Z"
+    "x-generation-date": "2024-02-20T08:10:29.868Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -194,23 +194,23 @@
                         "faction": {
                           "type": "string",
                           "enum": [
-                            "Tyraslin",
-                            "Lokmar",
-                            "Kartej",
-                            "Wasteland",
-                            "Gil Estel",
-                            "Neutral"
+                            "tyraslin",
+                            "lokmar",
+                            "kartej",
+                            "wasteland",
+                            "gilestel",
+                            "neutral"
                           ]
                         },
                         "type": {
                           "type": "string",
                           "enum": [
-                            "Banner",
-                            "City",
-                            "Maneuver",
-                            "Character",
-                            "Event",
-                            "Attachment"
+                            "banner",
+                            "city",
+                            "maneuver",
+                            "character",
+                            "event",
+                            "attachment"
                           ]
                         },
                         "sets": {
@@ -1197,23 +1197,23 @@
               "faction": {
                 "type": "string",
                 "enum": [
-                  "Tyraslin",
-                  "Lokmar",
-                  "Kartej",
-                  "Wasteland",
-                  "Gil Estel",
-                  "Neutral"
+                  "tyraslin",
+                  "lokmar",
+                  "kartej",
+                  "wasteland",
+                  "gilestel",
+                  "neutral"
                 ]
               },
               "type": {
                 "type": "string",
                 "enum": [
-                  "Banner",
-                  "City",
-                  "Maneuver",
-                  "Character",
-                  "Event",
-                  "Attachment"
+                  "banner",
+                  "city",
+                  "maneuver",
+                  "character",
+                  "event",
+                  "attachment"
                 ]
               },
               "sets": {
@@ -1355,23 +1355,23 @@
           "faction": {
             "type": "string",
             "enum": [
-              "Tyraslin",
-              "Lokmar",
-              "Kartej",
-              "Wasteland",
-              "Gil Estel",
-              "Neutral"
+              "tyraslin",
+              "lokmar",
+              "kartej",
+              "wasteland",
+              "gilestel",
+              "neutral"
             ]
           },
           "type": {
             "type": "string",
             "enum": [
-              "Banner",
-              "City",
-              "Maneuver",
-              "Character",
-              "Event",
-              "Attachment"
+              "banner",
+              "city",
+              "maneuver",
+              "character",
+              "event",
+              "attachment"
             ]
           },
           "sets": {
@@ -1415,23 +1415,23 @@
                                       "faction": {
                                         "type": "string",
                                         "enum": [
-                                          "Tyraslin",
-                                          "Lokmar",
-                                          "Kartej",
-                                          "Wasteland",
-                                          "Gil Estel",
-                                          "Neutral"
+                                          "tyraslin",
+                                          "lokmar",
+                                          "kartej",
+                                          "wasteland",
+                                          "gilestel",
+                                          "neutral"
                                         ]
                                       },
                                       "type": {
                                         "type": "string",
                                         "enum": [
-                                          "Banner",
-                                          "City",
-                                          "Maneuver",
-                                          "Character",
-                                          "Event",
-                                          "Attachment"
+                                          "banner",
+                                          "city",
+                                          "maneuver",
+                                          "character",
+                                          "event",
+                                          "attachment"
                                         ]
                                       },
                                       "sets": {
@@ -3432,23 +3432,23 @@
                       "faction": {
                         "type": "string",
                         "enum": [
-                          "Tyraslin",
-                          "Lokmar",
-                          "Kartej",
-                          "Wasteland",
-                          "Gil Estel",
-                          "Neutral"
+                          "tyraslin",
+                          "lokmar",
+                          "kartej",
+                          "wasteland",
+                          "gilestel",
+                          "neutral"
                         ]
                       },
                       "type": {
                         "type": "string",
                         "enum": [
-                          "Banner",
-                          "City",
-                          "Maneuver",
-                          "Character",
-                          "Event",
-                          "Attachment"
+                          "banner",
+                          "city",
+                          "maneuver",
+                          "character",
+                          "event",
+                          "attachment"
                         ]
                       },
                       "sets": {
@@ -5346,23 +5346,23 @@
                         "faction": {
                           "type": "string",
                           "enum": [
-                            "Tyraslin",
-                            "Lokmar",
-                            "Kartej",
-                            "Wasteland",
-                            "Gil Estel",
-                            "Neutral"
+                            "tyraslin",
+                            "lokmar",
+                            "kartej",
+                            "wasteland",
+                            "gilestel",
+                            "neutral"
                           ]
                         },
                         "type": {
                           "type": "string",
                           "enum": [
-                            "Banner",
-                            "City",
-                            "Maneuver",
-                            "Character",
-                            "Event",
-                            "Attachment"
+                            "banner",
+                            "city",
+                            "maneuver",
+                            "character",
+                            "event",
+                            "attachment"
                           ]
                         },
                         "sets": {

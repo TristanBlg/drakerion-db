@@ -25,7 +25,7 @@ function NavLink({ url, text }: NavLink) {
     <li className="flex">
       <Link
         href={url}
-        className={`flex items-center text-slate-700 px-4 -mb-1 ${path === url && "text-violet-400"
+        className={`flex items-center px-4 -mb-1 ${path === url ? "text-green-500" : "text-slate-700"
           }`}
       >
         {text}
@@ -40,16 +40,16 @@ function MobileNavLink({ url, text, closeMenu }: MobileNavLink) {
     closeMenu();
   };
   return (
-    <a className="flex">
+    <li className="flex">
       <Link
         href={url}
         onClick={handleClick}
-        className={`block px-3 py-4 text-lg font-semibold text-slate-700 ${path === url && "text-violet-400"
+        className={`block px-3 py-4 text-lg font-semibold ${path === url ? "text-green-500" : "text-slate-700"
           }`}
       >
         {text}
       </Link>
-    </a>
+    </li>
   );
 }
 
@@ -195,7 +195,7 @@ export default function Navbar({
                   </button>
                 </div>
                 <div className="mt-12 divide-y divide-gray-400 divide-opacity-50">
-                  <div>
+                  <ul>
                     {links.map((item) => (
                       <MobileNavLink
                         key={item.id}
@@ -203,8 +203,8 @@ export default function Navbar({
                         {...item}
                       />
                     ))}
-                  </div>
-                  <div>
+                  </ul>
+                  <ul>
                     {profileLinks.map((item) => (
                       <MobileNavLink
                         key={item.id}
@@ -212,7 +212,7 @@ export default function Navbar({
                         {...item}
                       />
                     ))}
-                  </div>
+                  </ul>
                   <form method="POST" action="#">
                     <button
                       type="submit"
