@@ -1,68 +1,13 @@
 'use client';
 import { useEffect, useState } from "react";
-import { useRouter, usePathname } from 'next/navigation'
-import Select, { Option } from "./Select";
-
-function findItemById(array: Option[], id: string) {
-  for (const element of array) {
-    if (element.value === id) {
-      return element
-    }
-  }
-  return null; // Not found
-}
-
-const factionOptions = [{ id: 1, name: 'Toutes', value: 'all' }, { id: 2, name: 'Gil Estel', value: 'gilestel' }, { id: 3, name: 'Lokmar', value: 'lokmar' }, { id: 4, name: 'Tyraslin', value: 'tyraslin' }]
-const typeOptions = [{ id: 1, name: 'Tous', value: 'all' }, { id: 2, name: 'Personnage', value: 'character' }, { id: 3, name: 'Banner', value: 'banner' }, { id: 4, name: 'City', value: 'city' }]
-
-type FILTERS_KEY = 't' | 'f'
-const FILTERS_MATCHS: { [key in FILTERS_KEY]: string } = {
-  t: 'type',
-  f: 'faction'
-}
-
-function getDefaultValuesFromQuery(query: string) {
-  const defaultValues = {
-    name: "",
-    faction: factionOptions[0],
-    type: typeOptions[0],
-  }
-  if (query) {
-    // Filter by other properties than name
-    const regex = new RegExp(`(t|f):(\\w*)`, 'g');
-    const matchs = query.match(regex)
-    if (matchs) {
-      for (const match of matchs) {
-        const value = match.replace(/(t|f):/, '')
-        const key = match.replace(/:\w*/, '')
-        if (key in FILTERS_MATCHS) {
-          const foundKey = FILTERS_MATCHS[key]
-          const option = findItemById(factionOptions, value)
-          console.log({ option })
-          defaultValues[foundKey] = option
-        }
-      }
-    }
-
-    // Filter by name
-    const formattedQuery = query.replace(regex, '').trim()
-    if (formattedQuery) {
-      defaultValues.name = formattedQuery
-    }
-  }
-  return defaultValues
-}
+import { useRouter, usePathname, useSearchParams } from 'next/navigation'
+import classNames from "../utils/classNames";
 
 let mount = false
-export default function Search({ query }: { query: string }) {
-  console.log({ query })
-
-  const defaultValues = getDefaultValuesFromQuery(query)
-  console.log({ defaultValues })
-
-  const [keyword, setKeyword] = useState(defaultValues.name);
-  const [cardFaction, setCardFaction] = useState(defaultValues.faction)
-  const [cardType, setCardType] = useState(defaultValues.type)
+export default function Search() {
+  const searchParams = useSearchParams()
+  const query = searchParams.get('query')
+  const [keyword, setKeyword] = useState(query || "");
 
   const router = useRouter();
   const pathname = usePathname();
@@ -90,20 +35,16 @@ export default function Search({ query }: { query: string }) {
 
   }, [keyword])
 
-  const handleSelectChange = (value: Option, filter: 't' | 'f') => {
-    if (filter === 't') {
-      setCardType(value)
-    } else if (filter === 'f') {
-      setCardFaction(value)
-    }
-
-    const regex = new RegExp(`${filter}:(\\w*)`, 'g');
+  const handleButton = (type: string, query: string) => {
+    const regex = new RegExp(`${type}:(\\w*)`, 'g');
     const newKeyword = keyword.replace(regex, "").replace(/\s+/g, " ").trim()
 
-    if (value.value === 'all') {
+    if (query === 'all') {
       setKeyword(newKeyword)
+    } else if (new RegExp(/type:generic/).test(keyword)) {
+      // IF KEYWORD ALREADY PRESENT, REMOVE IT
     } else {
-      const formattedKeyword = `${filter}:${value.value} `.concat(newKeyword).trim();
+      const formattedKeyword = `${type}:${query} `.concat(newKeyword).trim();
       setKeyword(formattedKeyword)
     }
   }
@@ -129,22 +70,56 @@ export default function Search({ query }: { query: string }) {
           </button>
         </div>
         <div className="flex flex-row gap-4 mt-4">
-          <div className="flex-1 sm:flex-initial">
-            <Select
-              label="Faction"
-              selected={cardFaction}
-              onChange={(value) => handleSelectChange(value, 'f')}
-              options={factionOptions}
-            />
-          </div>
-          <div className="flex-1 sm:flex-initial">
-            <Select
-              label="Type"
-              selected={cardType}
-              onChange={(value) => handleSelectChange(value, 't')}
-              options={typeOptions}
-            />
-          </div>
+          <button
+            type="button"
+            className={classNames(
+              new RegExp(/f:tyraslin/).test(keyword) ? 'bg-green-500' : 'bg-slate-500',
+              "rounded-sm text-white flex items-center gap-1 px-2 py-1 hover:bg-green-900 focus:outline-none",
+            )}
+            onClick={() => handleButton('f', 'tyraslin')}
+          >
+            <span className="leading-tight text-sm">Tyraslin</span>
+          </button>
+          <button
+            type="button"
+            className={classNames(
+              new RegExp(/f:neutral/).test(keyword) ? 'bg-green-500' : 'bg-slate-500',
+              "rounded-sm text-white flex items-center gap-1 px-2 py-1 hover:bg-green-900 focus:outline-none",
+            )}
+            onClick={() => handleButton('f', 'neutral')}
+          >
+            <span className="leading-tight text-sm">Neutral</span>
+          </button>
+          <button
+            type="button"
+            className={classNames(
+              new RegExp(/t:city,banner/).test(keyword) ? 'bg-green-500' : 'bg-slate-500',
+              "rounded-sm text-white flex items-center gap-1 px-2 py-1 hover:bg-green-900 focus:outline-none",
+            )}
+            onClick={() => handleButton('t', 'city,banner')}
+          >
+            <span className="leading-tight text-sm">City & Banner</span>
+          </button>
+          <button
+            type="button"
+            className={classNames(
+              new RegExp(/t:character,spell/).test(keyword) ? 'bg-green-500' : 'bg-slate-500',
+              "rounded-sm text-white flex items-center gap-1 px-2 py-1 hover:bg-green-900 focus:outline-none",
+            )}
+            onClick={() => handleButton('t', 'character,spell')}
+          >
+            <span className="leading-tight text-sm">Maindeck</span>
+          </button>
+          <button
+            type="button"
+            className={classNames(
+              new RegExp(/t:maneuver/).test(keyword) ? 'bg-green-500' : 'bg-slate-500',
+              "rounded-sm text-white flex items-center gap-1 px-2 py-1 hover:bg-green-900 focus:outline-none",
+            )}
+            onClick={() => handleButton('t', 'maneuver')}
+          >
+            <span className="leading-tight text-sm">Maneuver</span>
+          </button>
         </div>
       </form>
     </div>

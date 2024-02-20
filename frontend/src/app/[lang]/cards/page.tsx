@@ -24,7 +24,7 @@ async function fetchPostsByCategory(query: string) {
         if (key in FILTERS_MATCHS) {
           const foundKey = FILTERS_MATCHS[key]
           filters[foundKey] = {
-            $eq: value
+            $containsi: value
           }
         }
       }
@@ -62,7 +62,7 @@ export default async function CategoryRoute({ searchParams }: { searchParams: { 
   return (
     <div className="container mx-auto p-4 md:p-8">
       <PageHeader heading="Cards" text={""} />
-      <Search query={query} />
+      <Search />
       <div>
         {data.length ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 md:gap-4">
