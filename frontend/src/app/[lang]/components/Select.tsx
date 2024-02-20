@@ -13,6 +13,7 @@ interface SelectProps {
 }
 
 export default function Select({ options, label, selected, onChange }: SelectProps) {
+  console.log({ selected })
 
   return (
     <Listbox value={selected} onChange={onChange}>

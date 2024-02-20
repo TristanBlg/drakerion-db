@@ -15,10 +15,54 @@ function findItemById(array: Option[], id: string) {
 const factionOptions = [{ id: 1, name: 'Toutes', value: 'all' }, { id: 2, name: 'Gil Estel', value: 'gilestel' }, { id: 3, name: 'Lokmar', value: 'lokmar' }, { id: 4, name: 'Tyraslin', value: 'tyraslin' }]
 const typeOptions = [{ id: 1, name: 'Tous', value: 'all' }, { id: 2, name: 'Personnage', value: 'character' }, { id: 3, name: 'Banner', value: 'banner' }, { id: 4, name: 'City', value: 'city' }]
 
-export default function Search() {
-  const [keyword, setKeyword] = useState("");
-  const [cardFaction, setCardFaction] = useState(factionOptions[0])
-  const [cardType, setCardType] = useState(typeOptions[0])
+type FILTERS_KEY = 't' | 'f'
+const FILTERS_MATCHS: { [key in FILTERS_KEY]: string } = {
+  t: 'type',
+  f: 'faction'
+}
+
+function getDefaultValuesFromQuery(query: string) {
+  const defaultValues = {
+    name: "",
+    faction: factionOptions[0],
+    type: typeOptions[0],
+  }
+  if (query) {
+    // Filter by other properties than name
+    const regex = new RegExp(`(t|f):(\\w*)`, 'g');
+    const matchs = query.match(regex)
+    if (matchs) {
+      for (const match of matchs) {
+        const value = match.replace(/(t|f):/, '')
+        const key = match.replace(/:\w*/, '')
+        if (key in FILTERS_MATCHS) {
+          const foundKey = FILTERS_MATCHS[key]
+          const option = findItemById(factionOptions, value)
+          console.log({ option })
+          defaultValues[foundKey] = option
+        }
+      }
+    }
+
+    // Filter by name
+    const formattedQuery = query.replace(regex, '').trim()
+    if (formattedQuery) {
+      defaultValues.name = formattedQuery
+    }
+  }
+  return defaultValues
+}
+
+let mount = false
+export default function Search({ query }: { query: string }) {
+  console.log({ query })
+
+  const defaultValues = getDefaultValuesFromQuery(query)
+  console.log({ defaultValues })
+
+  const [keyword, setKeyword] = useState(defaultValues.name);
+  const [cardFaction, setCardFaction] = useState(defaultValues.faction)
+  const [cardType, setCardType] = useState(defaultValues.type)
 
   const router = useRouter();
   const pathname = usePathname();
@@ -29,6 +73,12 @@ export default function Search() {
   };
 
   useEffect(() => {
+    if (mount) {
+      console.log('submit', keyword)
+      handleSubmit()
+    } else {
+      mount = true
+    }
     // const regex = /f:(gilestel|lokmar|tyraslin)(?!\w)/;
     // const found = keyword.match(regex);
     // if (!found && cardFaction !== factionOptions[0]) {
@@ -38,7 +88,6 @@ export default function Search() {
     //   setCardFaction(option)
     // }
 
-    handleSubmit()
   }, [keyword])
 
   const handleSelectChange = (value: Option, filter: 't' | 'f') => {
