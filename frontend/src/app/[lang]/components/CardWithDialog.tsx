@@ -1,19 +1,37 @@
-'use client';
-import Image from 'next/image';
-import { Fragment, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { ExclamationTriangleIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import RichText from './RichText';
-import { Card } from '@/type';
+"use client";
+import Image from "next/image";
+import { Fragment, useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import {
+  ExclamationTriangleIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
+import RichText from "./RichText";
+import { Card } from "@/type";
 
-export default function CardWithDialog({ src, card, className, alt }: { src: string, card: Card, className: string, alt: string }) {
-  const [open, setOpen] = useState(false)
+export default function CardWithDialog({
+  src,
+  card,
+  className,
+  alt,
+}: {
+  src: string;
+  card: Card;
+  className: string;
+  alt: string;
+}) {
+  const [open, setOpen] = useState(false);
 
   return (
     <div>
-      <Image onClick={() => setOpen(true)} className={className + " cursor-pointer"} src={src} width={500}
+      <Image
+        onClick={() => setOpen(true)}
+        className={className + " cursor-pointer"}
+        src={src}
+        width={500}
         height={500}
-        alt={alt} />
+        alt={alt}
+      />
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={setOpen}>
           <Transition.Child
@@ -40,7 +58,7 @@ export default function CardWithDialog({ src, card, className, alt }: { src: str
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               >
                 <Dialog.Panel className="relative transform overflow-hidden rounded-md bg-white px-4 md:px-8 py-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-screen-sm md:max-w-screen-md">
-                  <div className='border-b mb-2 pb-2 flex justify-end'>
+                  <div className="border-b mb-2 pb-2 flex justify-end">
                     {/* <Dialog.Title as="h3" className="text-xl font-light	leading-6 text-gray-700 flex-1">
                       XXX
                     </Dialog.Title> */}
@@ -54,14 +72,24 @@ export default function CardWithDialog({ src, card, className, alt }: { src: str
                     </button>
                   </div>
                   <div className="flex-col sm:flex-row sm:flex sm:items-start">
-                    <Image className="rounded-xl w-full sm:w-60" src={src} width={500}
+                    <Image
+                      className="rounded-xl w-full sm:w-60"
+                      src={src}
+                      width={500}
                       height={500}
-                      alt={alt} />
+                      alt={alt}
+                    />
                     <div className="sm:flex-1 mt-8 sm:mt-0 sm:ml-8">
                       <div className="flex">
                         <p className="flex-1 text-slate-900">
-                          <span className="font-bold text-2xl">{card.name}</span>
-                          {card.subheading && (<span className="italic text-sm">, {card.subheading}</span>)}
+                          <span className="font-bold text-2xl">
+                            {card.name}
+                          </span>
+                          {card.subheading && (
+                            <span className="italic text-sm">
+                              , {card.subheading}
+                            </span>
+                          )}
                         </p>
                         <img
                           className="h-8 w-8"
@@ -69,9 +97,7 @@ export default function CardWithDialog({ src, card, className, alt }: { src: str
                           alt=""
                         />
                       </div>
-                      <p className="text-sm text-slate-700">
-                        {card.type}
-                      </p>
+                      <p className="text-sm text-slate-700">{card.type}</p>
                       <p className="italic text-sm text-slate-900">
                         {card.trait}
                       </p>
@@ -141,7 +167,9 @@ export default function CardWithDialog({ src, card, className, alt }: { src: str
                           src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                           alt=""
                         />
-                        <a className="ml-2 text-slate-900" href="">Core set</a>
+                        <a className="ml-2 text-slate-900" href="">
+                          Core set
+                        </a>
                       </div>
                     </div>
                   </div>
