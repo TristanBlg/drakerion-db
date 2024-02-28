@@ -15,11 +15,14 @@ async function fetchPostsByCategory(query: string) {
 
   if (query) {
     // Filter by other properties than name
-    const regex = new RegExp(`(t|f):(\\w*)`, "g");
+    const regex = new RegExp(`(t|f):((\\w|,)+)`, "g");
     const matchs = query.match(regex);
+    console.log({ matchs });
     if (matchs) {
       for (const match of matchs) {
         const value = match.replace(/(t|f):/, "");
+        // split by /,/ and use https://docs.strapi.io/dev-docs/api/rest/filters-locale-publication#complex-filtering
+        console.log({ value });
         const key = match.replace(/:\w*/, "");
         if (key in FILTERS_MATCHS) {
           const foundKey = FILTERS_MATCHS[key];

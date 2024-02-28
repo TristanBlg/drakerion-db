@@ -37,27 +37,16 @@ export default function Search() {
   const handleButton = (type: string, query: string) => {
     const regex = new RegExp(`${type}:((\\w|,)+)`, "g");
 
-    // console.log({ keyword, regex });
     const matchs = keyword.match(regex);
-    // console.log({ matchs });
     if (matchs) {
-      // console.log(
-      //   keyword,
-      //   matchs,
-      //   matchs[0].replace(`${type}:`, ""),
-      //   matchs[0].replace(`${type}:`, "").split(","),
-      //   [...matchs[0].replace(`${type}:`, "").split(","), query],
-      //   [...matchs[0].replace(`${type}:`, "").split(","), query].join(",")
-      // );
       const keys = matchs[0]
         .replace(`${type}:`, "")
         .replace(` `, "")
         .split(",");
-      if (matchs[0].match(query)) {
+      if (new RegExp(`(?<=${type}:(?:\\w*,)*)${query}(?!\\w)`).test(keyword)) {
         const newKeys = keys.filter((el) => {
-          return !new RegExp(el).exec(query);
+          return !new RegExp(el).test(query);
         });
-        // console.log({ newKeys });
         if (newKeys.length) {
           setKeyword(
             keyword.replace(regex, `${type}:${newKeys.join(",")}`).trim()
@@ -66,6 +55,7 @@ export default function Search() {
           setKeyword(keyword.replace(regex, ``).trim());
         }
       } else {
+        // new query item
         setKeyword(
           keyword.replace(regex, `${type}:${[...keys, query].join(",")}`).trim()
         );
@@ -73,15 +63,6 @@ export default function Search() {
     } else {
       setKeyword(`${type}:${query} ${keyword}`);
     }
-    // if (query === "all") {
-    //   setKeyword(newKeyword);
-    // } else if (new RegExp(/type:generic/).test(keyword)) {
-    //   // IF KEYWORD ALREADY PRESENT, REMOVE IT
-    //   console.log("else if");
-    // } else {
-    //   const formattedKeyword = `${type}:${query} `.concat(newKeyword).trim();
-    //   setKeyword(formattedKeyword);
-    // }
   };
 
   return (
