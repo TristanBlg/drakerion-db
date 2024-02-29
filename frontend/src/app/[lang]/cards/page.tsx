@@ -5,30 +5,37 @@ import Search from "../components/Search";
 import { Card } from "@/type";
 
 type FILTERS_KEY = "t" | "f";
-const FILTERS_MATCHS: { [key in FILTERS_KEY]: string } = {
+type FILTERS_VALUE = "type" | "faction" | "name" | "$or" | "$and";
+const FILTERS_MATCHS: { [key in FILTERS_KEY]: FILTERS_VALUE } = {
   t: "type",
   f: "faction",
 };
 
 async function fetchPostsByCategory(query: string) {
-  let filters: { [key in FILTERS_KEY | "name"]: any } | {} = {};
+  let filters: { [key in FILTERS_VALUE]?: any } = { $and: [] };
 
   if (query) {
     // Filter by other properties than name
     const regex = new RegExp(`(t|f):((\\w|,)+)`, "g");
     const matchs = query.match(regex);
-    console.log({ matchs });
     if (matchs) {
       for (const match of matchs) {
-        const value = match.replace(/(t|f):/, "");
-        // split by /,/ and use https://docs.strapi.io/dev-docs/api/rest/filters-locale-publication#complex-filtering
-        console.log({ value });
-        const key = match.replace(/:\w*/, "");
+        const values = match.replace(/(t|f):/, "").split(",");
+        const key: FILTERS_KEY = match.replace(/:.*/, "");
         if (key in FILTERS_MATCHS) {
+          let or = [];
           const foundKey = FILTERS_MATCHS[key];
-          filters[foundKey] = {
-            $containsi: value,
-          };
+          for (const value of values) {
+            or = [
+              ...or,
+              {
+                [foundKey]: {
+                  $eq: value,
+                },
+              },
+            ];
+          }
+          filters["$and"].push({ ["$or"]: or });
         }
       }
     }
